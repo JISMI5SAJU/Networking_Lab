@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<unistd.h>
+
+int send_frame(int frame){
+    printf("Sender: Sending frame %d...\n", frame);
+    sleep(1);
+    if(rand()%100<20){
+    printf("Receiver: Frame %d lost!\n", frame);
+        return 0;
+    }else{
+        printf("Receiver: Frame %d received successfully.\n", frame);
+        return 1;
+    }
+}
+
+int receive_ack(int frame){
+    if(rand()%100<10){
+        printf("Sender: ACK for frame %d lost!\n", frame);
+        return 0;
+    }else{
+        printf("Sender: ACK for frame %d received.\n", frame);
+        return 1;
+    }
+}
+
+int main(){
+    int total_frames, frame=0;
+    srand(time(0));
+    printf("Enter the number of frames to send: ");
+    scanf("%d", &total_frames);
+    while(frame<total_frames){
+        int sent=send_frame(frame);
+        if(sent){
+            int ack=receive_ack(frame);
+            if(ack){
+                frame++;
+            }else{
+                printf("Sender: Timeout! Resending frame %d...\n", frame);
+            }
+        }else{
+            printf("Sender: Timeout! Resending frame %d...\n", frame);
+        }
+        printf("--------------------------------------\n");
+    }
+    printf("All frames sent successfully!\n");
+    return 0;
+}
+
+
+OUTPUT:
+Enter the number of frames to send: 4
+Sender: Sending frame 0...
+Receiver: Frame 0 received successfully.
+Sender: ACK for frame 0 received.
+--------------------------------------
+Sender: Sending frame 1...
+Receiver: Frame 1 received successfully.
+Sender: ACK for frame 1 received.
+--------------------------------------
+Sender: Sending frame 2...
+Receiver: Frame 2 received successfully.
+Sender: ACK for frame 2 received.
+--------------------------------------
+Sender: Sending frame 3...
+Receiver: Frame 3 lost!
+Sender: Timeout! Resending frame 3...
+--------------------------------------
+Sender: Sending frame 3...
+Receiver: Frame 3 received successfully.
+Sender: ACK for frame 3 received.
+--------------------------------------
+All frames sent successfully!
+
+
+=== Code Execution Successful ===
