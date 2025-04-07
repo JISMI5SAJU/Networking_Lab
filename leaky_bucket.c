@@ -39,3 +39,24 @@ int main() {
     return 0;
 }
 
+
+OUTPUT:
+Enter buffer capacity :10
+Enter outgoing packet rate :4
+Enter the number of packet inputs :3
+Enter the packet size to be processed : 6
+Processing packet size 6
+Buffer state:  6 out of 10
+After outgoing process, 2 packets remain in buffer, capacity: 10
+Enter the packet size to be processed : 5
+Processing packet size 5
+Buffer state:  7 out of 10
+After outgoing process, 3 packets remain in buffer, capacity: 10
+Enter the packet size to be processed : 8
+Processing packet size 8
+Dropped 1 packet(s)
+Buffer state:  10 out of 10
+After outgoing process, 6 packets remain in buffer, capacity: 10
+
+
+=== Code Execution Successful ===
